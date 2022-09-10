@@ -14,8 +14,12 @@
 {{/* A template for setting the field comment. */}}
 {{- define "model/fieldcomment" }}
     {{- if $.Comment }}
-        {{- range $line := split $.Comment "\n" }}
-            // {{ $.StructField }} {{ $line }}
+        {{- range $idx, $line := split $.Comment "\n" }}
+            {{- if eq $idx 0}}
+                // {{ $.StructField }} {{ $line }}
+            {{- else}}
+                // {{ $line }}
+            {{- end}}
         {{- end }}
     {{- else }}
         // {{ $.StructField }} holds the value of the "{{ $.Name }}" field.
@@ -32,8 +36,12 @@
 {{/* A template for setting the edge comment. */}}
 {{- define "model/edgecomment" }}
     {{- if $.Comment }}
-        {{- range $line := split $.Comment "\n" }}
-            // {{ $.StructField }} {{ $line }}
+        {{- range $idx, $line := split $.Comment "\n" }}
+            {{- if eq $idx 0}}
+                // {{ $.StructField }} {{ $line }}
+            {{- else}}
+                // {{ $line }}
+            {{- end}}
         {{- end }}
     {{- else }}
         // {{ $.StructField }} holds the value of the {{ $.Name }} edge.
