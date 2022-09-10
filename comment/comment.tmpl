@@ -4,7 +4,9 @@
 {{- define "model/comment/additional/comments" }}
     {{- if $comments := $.Annotations.Comments }}
         {{- range $comment := $comments}}
-            // {{$comment}}
+            {{- range $line := split $comment "\n" }}
+                // {{$line}}
+            {{- end}}
         {{- end}}
     {{- end }}
 {{- end }}
@@ -18,6 +20,13 @@
     {{- else }}
         // {{ $.StructField }} holds the value of the "{{ $.Name }}" field.
     {{- end }}
+    {{- if $comments := $.Annotations.Comments }}
+        {{- range $comment := $comments}}
+            {{- range $line := split $comment "\n" }}
+                // {{$line}}
+            {{- end}}
+        {{- end}}
+    {{- end }}
 {{- end }}
 
 {{/* A template for setting the edge comment. */}}
@@ -28,5 +37,12 @@
         {{- end }}
     {{- else }}
         // {{ $.StructField }} holds the value of the {{ $.Name }} edge.
+    {{- end }}
+    {{- if $comments := $.Annotations.Comments }}
+        {{- range $comment := $comments}}
+            {{- range $line := split $comment "\n" }}
+                // {{$line}}
+            {{- end}}
+        {{- end}}
     {{- end }}
 {{- end }}
